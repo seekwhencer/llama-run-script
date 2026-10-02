@@ -95,7 +95,7 @@ bash check_kv.sh --export /path/to/model.gguf
 
 **Berechnungsgrundlage:**
 
-- `TOTAL_VRAM_GB` und `SYSTEM_OVERHEAD_GB` sind oben im Skript konfiguriert (Standard: 32 GB / 2 GB).
+- `TOTAL_VRAM_GB` und `SYSTEM_OVERHEAD_GB` sind in `.env` (oder `.env.default`) konfiguriert (Standard: 32 GB / 2 GB).
 - Der KV-Cache pro Token wird aus Architektur-Metadaten abgeleitet:
   `bytes_per_token = 2 × layers × heads_kv × head_dim × bpe_factor`
 - Das Ergebnis wird auf 512 Tokens aufgerundet und auf den trainierten Maximalkontext (`context_length`) begrenzt.
@@ -182,13 +182,13 @@ Erfordert `sudo`-Privilegien (`sync` + `drop_caches`).
 
 Werte, die ggf. an das eigene System angepasst werden sollten:
 
-| Skript | Variable | Standard | Bedeutung |
-|---|---|---|---|
-| `check_kv.sh` | `TOTAL_VRAM_GB` | `32` | Gesamter VRAM in GB |
-| `check_kv.sh` | `SYSTEM_OVERHEAD_GB` | `2` | Puffer für System/CUDA |
-| `sync_models.sh` | `SOURCE_DIR` | `/change/me` | Quellordner der LM-Studio-Modelle (in `.env`) |
-| `load.sh` | `DEFAULT_CONTEXT` | `32768` | Standard-Kontext in Tokens |
-| `load.sh` | `CONTEXT_STEP` | `16384` | Schrittweite der Kontext-Stufen |
+| Variable | Standard | Bedeutung |
+|---|---|---|
+| `TOTAL_VRAM_GB` | `32` | Gesamter VRAM in GB (in `.env`) |
+| `SYSTEM_OVERHEAD_GB` | `2` | Puffer für System/CUDA (in `.env`) |
+| `DEFAULT_CONTEXT` | `32768` | Standard-Kontext in Tokens (in `.env`) |
+| `CONTEXT_STEP` | `16384` | Schrittweite der Kontext-Stufen (in `.env`) |
+| `SOURCE_DIR` | `/change/me` | Quellordner der LM-Studio-Modelle (in `.env`) |
 
 ---
 

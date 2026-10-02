@@ -4,10 +4,19 @@
 set -uo pipefail
 
 # ================= KONFIGURATION =================
-TOTAL_VRAM_GB=32
-SYSTEM_OVERHEAD_GB=2
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 CACHE_DIR="$SCRIPT_DIR/meta"
+
+# Konfiguration aus .env laden (Fallback auf .env.default)
+if [ -f "$SCRIPT_DIR/.env" ]; then
+    set -a
+    source "$SCRIPT_DIR/.env"
+    set +a
+elif [ -f "$SCRIPT_DIR/.env.default" ]; then
+    set -a
+    source "$SCRIPT_DIR/.env.default"
+    set +a
+fi
 # =================================================
 
 mkdir -p "$CACHE_DIR"

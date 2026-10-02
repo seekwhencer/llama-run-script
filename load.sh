@@ -16,9 +16,19 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 MODELS_DIR="$SCRIPT_DIR/models"
 CONFIG_FILE="$SCRIPT_DIR/.llama_load_last"
 CACHE_DIR="$SCRIPT_DIR/meta"
-DEFAULT_CONTEXT=32768
-CONTEXT_STEP=16384
-PRESET_CONTEXT=32768
+
+# Konfiguration aus .env laden (Fallback auf .env.default)
+if [ -f "$SCRIPT_DIR/.env" ]; then
+    set -a
+    source "$SCRIPT_DIR/.env"
+    set +a
+elif [ -f "$SCRIPT_DIR/.env.default" ]; then
+    set -a
+    source "$SCRIPT_DIR/.env.default"
+    set +a
+fi
+
+PRESET_CONTEXT="${DEFAULT_CONTEXT:-32768}"
 NUM_STEPS=16
 CUSTOM_OPTION=$((NUM_STEPS + 2))
 
