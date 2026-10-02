@@ -1,0 +1,7 @@
+.idea
+.kilo
+.env
+models/**/*
+meta/**/*
+.llama_load_last
+.env
